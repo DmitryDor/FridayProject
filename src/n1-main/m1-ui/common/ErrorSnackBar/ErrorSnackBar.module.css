@@ -1,0 +1,62 @@
+.notification {
+    bottom: 20px;
+    margin: 0 auto;
+    position: absolute;
+    background: #980a0a;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 16px;
+    box-shadow: 0 0 25px rgba(33, 33, 33, 0.5);
+    border-radius: 3px;
+    box-sizing: border-box;
+    animation: 0.3s down ease 1;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+
+.notification a {
+    color: skyblue;
+    text-decoration: none;
+    display: block;
+    float: right;
+    width: auto;
+    padding: 0 10px;
+    height: 40px;
+    margin-left: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.text {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    text-align: center;
+    float: left;
+}
+
+.close {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    float: right;
+    background: rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+}
+
+.close:hover{
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.close .text {
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}

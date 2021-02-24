@@ -1,0 +1,24 @@
+.profile {
+    text-align: center;
+  height: 100vh;
+}
+.profileContainer {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+} 
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid white;
+    padding: 20px;
+    width: 50%;
+}
+.info span {
+    color: #e08821;
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: 25px;
+}

@@ -1,0 +1,83 @@
+.header {
+
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    height: 100px;
+    background: #0e0e0e;
+}
+
+.burgerToggle {
+    position: relative;
+    display: inline-block;
+    width: 15px;
+    transition: .3s transform;
+}
+
+
+.burgerToggle>span  {
+    position: absolute;
+    display: block;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    margin-top: -1.5px;
+    background-color: #fff;
+    border-radius: 1.5px;
+}
+.burgerToggle>span::before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 6px;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 1.5px;
+}
+.burgerToggle>span::after {
+    left: 400%;
+}
+.burgerToggle .nk1 {
+    margin-top: -7.5px;    
+}
+
+.burgerToggle .nk3 {
+margin-top: 4.5px; 
+}
+.nk1::after {
+    content: "";
+    position: absolute;
+    display: block;
+    /* left: 6px; */
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 1.5px;
+}
+.nk2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 6px;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 1.5px;
+}
+.nk3::after {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 6px;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 1.5px;
+}
+.devInput{
+    position: absolute;
+    left: 100px;
+    top:0px
+
+}

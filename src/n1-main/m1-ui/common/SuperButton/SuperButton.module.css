@@ -1,0 +1,23 @@
+
+.button {
+    text-decoration: none;
+    color: white;
+    background-color: transparent;
+    font-family: 'Marcellus SC';
+    font-size: 20px;
+    font-weight: 600;
+    padding: 12px 30px;
+    border: 1px solid #e6e6e6;
+    margin: 10px;
+}
+
+
+.button:hover {
+   color: #e08821;
+   border: 1px solid #e08821;
+}
+button:disabled,
+button[disabled]{
+  border: 1px solid #666666;  
+  color: #666666;
+}
