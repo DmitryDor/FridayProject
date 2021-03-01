@@ -45,32 +45,50 @@ export const CardsAPI = {
         return instance.get(`cards/pack`, {params: paginationData})
     },
 
-    createCardsPack() {
-        return instance.post(`cards/pack`, {cardsPack: {name: "new pack 3.3"}})
+    createCardsPack(newPackName: string) {
+        return instance.post(`cards/pack`, {cardsPack: {name: newPackName}})
     },
     deleteCardsPack(idCarsPack: string) {
         return instance.delete(`cards/pack/?id=${idCarsPack}`)
     },
-    updateCardsPack(id: string) {
-        return instance.put(`cards/pack/`, {cardsPack: {_id: id, name: "new Name 1.1"}})
+    updateCardsPack(id: string, newNamePack: string) {
+        return instance.put(`cards/pack/`, {cardsPack: {_id: id, name: newNamePack}})
     },
     getCards(paginationCardsData: any) {
         return instance.get(`cards/card/`, {params: paginationCardsData})
     },
-    createCard(cardsPack_ida: string) {
-        return instance.post(`cards/card`, {card: { cardsPack_id: cardsPack_ida}})
+    createCard(cardsPack_id: string, values: { question: string, answer: string }) {
+        return instance.post(`cards/card`, {
+            card:
+                {
+                    cardsPack_id: cardsPack_id,
+                    ...values
+                }
+        })
     },
     deleteCard(idCarsPack: string) {
         return instance.delete(`cards/card/?id=${idCarsPack}`)
     },
-    updateCard(cardId: string) {
+    updateCard(cardId: string, question: string, answer: string) {
         return instance.put(`cards/card`, {
             card: {
                 _id: cardId,
-                question: "new question 1.1.1"
+                question: question,
+                answer: answer
+
             }
         })
     },
+    gradeCard(grade: number, card_id: string) {
+        return instance.put(`cards/grade`,
+            {
+                grade: grade,
+                card_id: card_id
+
+            }
+        )
+    },
+
 }
 export type cardsPackType = {
     _id: string

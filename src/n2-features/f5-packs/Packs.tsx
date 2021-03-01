@@ -8,10 +8,13 @@ import {Pack} from "./pack/Pack";
 import {RequestStatusType} from "../../n1-main/m2-bll/app-reduser";
 import {SortButtons} from '../../n1-main/m1-ui/common/SortButtons/SortButtons'
 import {Paginator} from "../../n1-main/m1-ui/common/Paginator/Paginator";
-import {getCardPacksDataType} from "../../n1-main/m3-dal/instance";
+import {Modal} from '../../n1-main/m1-ui/common/Modal/Modal'
+import {Redirect} from "react-router-dom";
+import {PATH} from "../../n1-main/m1-ui/routes/Routes";
+import {AddForm} from "../../n1-main/m1-ui/common/AddForm/AddForm";
 
 
-export const Packs = () => {
+export const Packs = (props: { activeModal: boolean, setActiveModal: (activeModal: boolean) => void }) => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.app.isLoggedIn)
     const userId = useSelector<AppRootStateType, string>(state => state.app.UserData ? state.app.UserData._id : "")
     const cardPacks = useSelector<AppRootStateType, Array<PackType>>(state => state.packs.cardPacks)
@@ -22,6 +25,7 @@ export const Packs = () => {
     const [isChange, setIsChange] = useState<boolean>(false)
     const [idTimeout, setIdTimeout] = useState<number>(0)
     const [searchName, setSearchName] = useState<string>("")
+    const [activeAddPackModal, setActiveAddPackModal] = useState<boolean>(false)
     const isLoading = status === 'loading'
 
     const setChange = useCallback(() => {
@@ -60,7 +64,10 @@ export const Packs = () => {
         }
     }
 
-    const addPack = () => dispatch(addCardPacksTC())
+    const addPack = (newPackName: string) => {
+        dispatch(addCardPacksTC(newPackName))
+        setActiveAddPackModal(false)
+    }
 
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchName(e.currentTarget.value)
@@ -74,6 +81,10 @@ export const Packs = () => {
         dispatch(setPaginationAC({page: pageNumber}))
         dispatch(getCardPacksTC())
     }
+    /*if (!isLoggedIn) {
+        return <Redirect to={PATH.LOGIN}/>
+
+    }*/
 
     return (
 
@@ -101,14 +112,24 @@ export const Packs = () => {
                     <SortButtons param="updated"/>
                     <h2> Updated</h2>
                 </div>
-                <div><SuperButton onClick={addPack} name={"add"}/></div>
-                <h2>Cards</h2>
+                <div><SuperButton onClick={() => {
+                    setActiveAddPackModal(true)
+                }} name={"add"}/></div>
+                <div className={s.tableColumnTitle}></div>
+                <div className={s.tableColumnTitle}><h2> Cards</h2></div>
+                <div className={s.tableColumnTitle}><h2> Learn</h2></div>
 
             </div> : <div>"you are not authorized"</div>}
 
+            <Modal activeModal={activeAddPackModal} setActiveModal={setActiveAddPackModal}>
+                {/* <AddItemForm addItem={addPack} buttonName={"add"}/>*/}
+                <AddForm addItem={addPack} buttonName={"ADD PACK"} itemName={"pack name"}
+                         text={"enter the name of the new pack"}/>
+            </Modal>
+
             {cardPacks.map(packs =>
-                <Pack name={packs.name} cardsCount={packs.cardsCount} updated={packs.updated} pack_id={packs._id}
-                      userId={packs.user_id}/>
+                <Pack name={packs.name} cardsCount={packs.cardsCount} updated={packs.updated?.slice(0,10)} pack_id={packs._id}
+                      userId={packs.user_id} activeModal={props.activeModal} setActiveModal={props.setActiveModal}/>
             )}
 
             <Paginator currentPage={page} pageSize={pageSize} totalItemsCount={totalItemsCount} portionSize={10}

@@ -15,7 +15,7 @@ let initialState = {
             max: 0,//количество карточек в колоде
             sortPacks: "0updated",// сортировка
             page: 1, //номер страницы
-            pageCount: 5,//кол-во элем на странице
+            pageCount: 3,//кол-во элем на странице
             user_id: "",
 
         },
@@ -32,7 +32,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, pagination: {...state.pagination, ...action.property}}
 
         case "SET-TOTAL-PACKS-COUNT":
-            return {...state,  totalPacksCount: action.packsCount}
+            return {...state, totalPacksCount: action.packsCount}
 
         case "SET-CURRENT-PAGE":
             return {...state, pagination: {...state.pagination, page: action.currentPage}}
@@ -84,14 +84,15 @@ export const getCardPacksTC = (getData: getCardPacksDataType = {}) =>
             dispatch(setAppErrorAC(error))
         }
     }
-export const addCardPacksTC = () =>
+export const addCardPacksTC = (newPackName: string) =>
     async (dispatch: Dispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatusAC('loading'))
-            const createResponse = await CardsAPI.createCardsPack()
+            const createResponse = await CardsAPI.createCardsPack(newPackName)
             const paginationData = getState().packs.pagination
             const getResponse = <AxiosResponse<getCardPacksResponseType>>await CardsAPI.getCardPacks(paginationData)
             const packs = getResponse.data.cardPacks
+
             dispatch(setCardPacksAC(packs))
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setAppErrorAC(null))
@@ -125,11 +126,11 @@ export const removePackTC = (idCarsPack: string) =>
             dispatch(setAppErrorAC(error))
         }
     }
-export const updateTC = (id: string, getData: getCardPacksDataType = {}) =>
+export const updateTC = (id: string, newNamePack: string, getData: getCardPacksDataType = {}) =>
     async (dispatch: Dispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatusAC('loading'))
-            const updateResponse = await CardsAPI.updateCardsPack(id)
+            const updateResponse = await CardsAPI.updateCardsPack(id, newNamePack)
             const paginationData = getState().packs.pagination
             const getResponse = <AxiosResponse<getCardPacksResponseType>>await CardsAPI.getCardPacks(paginationData)
             const packs = getResponse.data.cardPacks

@@ -8,10 +8,11 @@
     }
 .tableString>div{
     height: 80px;
-    width: 180px;
+    width: 140px;
     border-bottom: 2px solid #404040;
     }
 .tableColumnTitle {
   display: flex;
   justify-content: space-evenly;
 }
+

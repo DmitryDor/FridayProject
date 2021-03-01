@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom';
 import {useFormik} from 'formik';
 import {AppRootStateType} from '../../../../src/n1-main/m2-bll/store'
 import {PATH} from "../../../n1-main/m1-ui/routes/Routes";
-import {RequestStatusType, setAppErrorAC} from "../../../n1-main/m2-bll/app-reduser";
+import {RequestStatusType} from "../../../n1-main/m2-bll/app-reduser";
 
 
 export const Login = () => {
@@ -21,7 +21,7 @@ export const Login = () => {
         initialValues: {
             email: "Potapov.eo@mail.ru",
             password: "jekajeka",
-            rememberMe: false
+            rememberMe: true
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -43,8 +43,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        /* dispatch(setAppErrorAC("you are already logged in"))*/
-        return <Redirect to={PATH.PROFILE}/>
+          return <Redirect to={PATH.PROFILE}/>
     }
 
     return (

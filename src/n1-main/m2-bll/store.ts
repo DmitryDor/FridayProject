@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux'
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import {loginReducer} from "../../n2-features/f1-auth/a1-login/login-reducer";
 import {registerReducer} from "../../n2-features/f1-auth/a2-register/register-reducer";
@@ -19,7 +19,6 @@ const rootReducer = combineReducers({
     cards: cardsReducer
 
 })
-
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

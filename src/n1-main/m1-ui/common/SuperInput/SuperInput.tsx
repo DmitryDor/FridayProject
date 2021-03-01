@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes} from "react";
+import React, {DetailedHTMLProps, InputHTMLAttributes} from "react";
 import s from "./SuperInput.module.css";
 import './SuperInput.module.css'
 
@@ -7,12 +7,12 @@ import './SuperInput.module.css'
 type DefaultButtonPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 type SuperButtonPropsType = DefaultButtonPropsType & {
-name?:string
+    name?: string
 }
 
 const SuperInput: React.FC<SuperButtonPropsType> = (
     {
-      
+
         ...restProps// все остальные пропсы попадут в объект restProps, там же будет children
     }
 ) => {
@@ -20,7 +20,7 @@ const SuperInput: React.FC<SuperButtonPropsType> = (
 
     return (
         <input {...restProps} className={s.input}
-            />
+        />
     );
 }
 

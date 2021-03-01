@@ -1,15 +1,16 @@
-import {CardsAPI, getCardPacksDataType, getCardsDataType} from "../../n1-main/m3-dal/instance";
+import {CardsAPI} from "../../n1-main/m3-dal/instance";
 import {Dispatch} from "redux";
 import {setAppErrorAC, setAppStatusAC} from "../../n1-main/m2-bll/app-reduser";
 import {AxiosResponse} from "axios";
 import {AppRootStateType} from "../../n1-main/m2-bll/store";
+import {valueType} from "../../n1-main/m1-ui/common/AddCardForm/AddCardForm";
 
 
 const initialState = {
     cards: [] as Array<CardType>,
     paginationCards: {
         page: 1,
-        pageCount: 2,
+        pageCount: 3,
         cardAnswer: '',
         cardQuestion: '',
         cardsPack_id: '',
@@ -51,7 +52,7 @@ export const getCardTC = () =>
     async (dispatch: Dispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatusAC('loading'))
-
+debugger
             const paginationData = getState().cards.paginationCards
             const response = <AxiosResponse<GetCardsResponseType>>await CardsAPI.getCards(paginationData)
             const cards = response.data.cards
@@ -60,7 +61,7 @@ export const getCardTC = () =>
             dispatch(setCardAC(cards))
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setAppErrorAC(null))
-        } catch (e) {
+        } catch (e) { debugger
             dispatch(setAppStatusAC('failed'))
             const error = e.response
                 ? e.response.data.error
@@ -69,19 +70,21 @@ export const getCardTC = () =>
             dispatch(setAppErrorAC(error))
         }
     }
-export const addCardTC = (cardsPack_id: string) =>
-    async (dispatch: Dispatch , getState: () => AppRootStateType) => {
+export const addCardTC = (cardsPack_id: string, values: { question: string, answer: string }) =>
+    async (dispatch: Dispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatusAC('loading'))
-
-            const addResponse = <AxiosResponse<any>>await CardsAPI.createCard(cardsPack_id)
+debugger
+            const addResponse = <AxiosResponse<any>>await CardsAPI.createCard(cardsPack_id, values)
             const paginationData = getState().cards.paginationCards
             const response = <AxiosResponse<GetCardsResponseType>>await CardsAPI.getCards(paginationData)
             const cards = response.data.cards
+            dispatch(setTotalCardsCountAC(response.data.cardsTotalCount))
             dispatch(setCardAC(cards))
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setAppErrorAC(null))
-        } catch (e) {
+            debugger
+        } catch (e) {debugger
             dispatch(setAppStatusAC('failed'))
             const error = e.response
                 ? e.response.data.error
@@ -98,6 +101,7 @@ export const removeCardTC = (cardsPack_id: string, cardId: string) =>
             const paginationData = getState().cards.paginationCards
             const response = <AxiosResponse<GetCardsResponseType>>await CardsAPI.getCards(paginationData)
             const cards = response.data.cards
+            dispatch(setTotalCardsCountAC(response.data.cardsTotalCount))
             dispatch(setCardAC(cards))
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setAppErrorAC(null))
@@ -110,16 +114,38 @@ export const removeCardTC = (cardsPack_id: string, cardId: string) =>
             dispatch(setAppErrorAC(error))
         }
     }
-export const updateCardTC = (cardsPack_id: string, cardId: string) =>
+export const updateCardTC = (cardId: string, value: valueType) =>
     async (dispatch: Dispatch, getState: () => AppRootStateType) => {
         try {
             dispatch(setAppStatusAC('loading'))
-            const removeResponse = <AxiosResponse<any>>await CardsAPI.updateCard(cardId)
+            const removeResponse = <AxiosResponse<any>>await CardsAPI.updateCard(cardId, value.question, value.answer)
 
             const paginationData = getState().cards.paginationCards
             const response = <AxiosResponse<GetCardsResponseType>>await CardsAPI.getCards(paginationData)
             const cards = response.data.cards
             dispatch(setCardAC(cards))
+            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppErrorAC(null))
+        } catch (e) {
+            dispatch(setAppStatusAC('failed'))
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console')
+
+            dispatch(setAppErrorAC(error))
+        }
+    }
+export const gradeCardTC = (grade: number, card_id: string) =>
+    async (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        try {
+            dispatch(setAppStatusAC('loading'))
+            const Response = <AxiosResponse<any>>await CardsAPI.gradeCard(grade, card_id)
+
+            const newCards = <CardType[]>getState().cards.cards.map((card) => card._id === card_id ? {
+                ...card,
+                grade: grade
+            } : card)
+            dispatch(setCardAC(newCards))
             dispatch(setAppStatusAC('succeeded'))
             dispatch(setAppErrorAC(null))
         } catch (e) {

@@ -1,6 +1,12 @@
 import {Dispatch} from 'redux'
 import {AuthAPI} from '../../../n1-main/m3-dal/instance'
-import {receivedResponseAC, setAppErrorAC, setAppStatusAC, UserDataType} from "../../../n1-main/m2-bll/app-reduser";
+import {
+    receivedResponseAC,
+    setAppErrorAC,
+    setAppStatusAC,
+
+    UserDataType
+} from "../../../n1-main/m2-bll/app-reduser";
 import {setCardPacksAC} from "../../f5-packs/Packs-reduser";
 import {setCardAC} from "../../f6-cards/Cards-reducer";
 
@@ -34,14 +40,14 @@ export const getMe = () => async (dispatch: Dispatch) => {
         let response = await AuthAPI.getAuthMe()
         let userData = response.data
         dispatch(receivedResponseAC(userData, 'succeeded', null, true))
-
-    } catch (e) {
+             } catch (e) {
         dispatch(setAppStatusAC('failed'))
         const error = e.response
             ? e.response.data.error
             : (e.message + ', more details in the console')
         dispatch(setAppErrorAC(error))
-    }
+        dispatch( setIsLoggedIn(false))
+              }
 }
 
 export const login = (mail: string, password: string, remember_Me: boolean) =>

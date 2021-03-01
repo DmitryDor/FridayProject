@@ -19,8 +19,8 @@ export type AppInitialStateType = {
     status: RequestStatusType
     UserData: UserDataType
     isLoggedIn: boolean
-    userId?:string
-    devVersion:boolean
+    userId?: string
+    devVersion: boolean
 
 
 }
@@ -28,7 +28,7 @@ const initialState: AppInitialStateType = {
     status: 'succeeded',
     error: null,
     UserData: {
-        _id:"",
+        _id: "",
         email: null as string | null,
         name: null as string | null,
         avatar: null as string | null,
@@ -40,7 +40,7 @@ const initialState: AppInitialStateType = {
         rememberMe: false,
     },
     isLoggedIn: false,
-    devVersion:false // для переключения м-ду локальным бэком и хироку
+    devVersion: false // для переключения м-ду локальным бэком и хироку
 
 }
 export const appReducer = (state: AppInitialStateType = initialState, action: ActionsType): AppInitialStateType => {
@@ -50,11 +50,17 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ac
         case 'APP/SET-ERROR':
             return {...state, error: action.error}
         case "SET_USER_DATA":
-            return {...state,UserData:action.userData}
+            return {...state, UserData: action.userData}
         case "SET_ISLOGGEDIN":
             return {...state, isLoggedIn: action.value}
         case "SET-RECEIVED-RESPONSE":
-            return {...state,status: action.status, error: action.error,UserData:action.userData, isLoggedIn: action.isLoggedIn}
+            return {
+                ...state,
+                status: action.status,
+                error: action.error,
+                UserData: action.userData,
+                isLoggedIn: action.isLoggedIn
+            }
         case 'SET-DEV_VERSION':
             return {...state, devVersion: action.devVersion}
 
@@ -69,10 +75,8 @@ export const setAppStatusAC = (status: RequestStatusType) =>
     ({type: 'APP/SET-STATUS', status} as const)
 export const setAppErrorAC = (error: string | null) =>
     ({type: 'APP/SET-ERROR', error} as const)
-export const receivedResponseAC=(userData:UserDataType,status: RequestStatusType,error: string | null,isLoggedIn: boolean)=>
-    ({type: 'SET-RECEIVED-RESPONSE', userData,status,error,isLoggedIn} as const)
-
-
+export const receivedResponseAC = (userData: UserDataType, status: RequestStatusType, error: string | null, isLoggedIn: boolean) =>
+    ({type: 'SET-RECEIVED-RESPONSE', userData, status, error, isLoggedIn} as const)
 
 
 export type setAppStatusACType = ReturnType<typeof setAppStatusAC>
@@ -86,8 +90,8 @@ type ActionsType =
     | setAppErrorACType
     | ReturnType<typeof setUserData>
     | ReturnType<typeof setIsLoggedIn>
-    |receivedResponseACType
-    |setDevVersionACType
+    | receivedResponseACType
+    | setDevVersionACType
 
 
 
