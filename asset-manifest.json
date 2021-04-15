@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/FridayProject/static/css/main.cfcae2a4.chunk.css",
+    "main.js": "/FridayProject/static/js/main.91cd72d1.chunk.js",
+    "main.js.map": "/FridayProject/static/js/main.91cd72d1.chunk.js.map",
+    "runtime-main.js": "/FridayProject/static/js/runtime-main.21dc8d78.js",
+    "runtime-main.js.map": "/FridayProject/static/js/runtime-main.21dc8d78.js.map",
+    "static/js/2.abdf4485.chunk.js": "/FridayProject/static/js/2.abdf4485.chunk.js",
+    "static/js/2.abdf4485.chunk.js.map": "/FridayProject/static/js/2.abdf4485.chunk.js.map",
+    "static/js/3.2495061c.chunk.js": "/FridayProject/static/js/3.2495061c.chunk.js",
+    "static/js/3.2495061c.chunk.js.map": "/FridayProject/static/js/3.2495061c.chunk.js.map",
+    "index.html": "/FridayProject/index.html",
+    "static/css/main.cfcae2a4.chunk.css.map": "/FridayProject/static/css/main.cfcae2a4.chunk.css.map",
+    "static/js/2.abdf4485.chunk.js.LICENSE.txt": "/FridayProject/static/js/2.abdf4485.chunk.js.LICENSE.txt",
+    "static/media/Infinity-1s-200px.2a677e42.svg": "/FridayProject/static/media/Infinity-1s-200px.2a677e42.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.21dc8d78.js",
+    "static/js/2.abdf4485.chunk.js",
+    "static/css/main.cfcae2a4.chunk.css",
+    "static/js/main.91cd72d1.chunk.js"
+  ]
+}
